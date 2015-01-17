@@ -36,5 +36,19 @@ var Util = {
   		}
   	}
   	return parameters
-  };
+  },
+  getMouseXY: function(){
+    ev =ev  || window.event;
+   var x = y = 0,
+   doc = document.documentElement,
+   body = document.body;
+   x = (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+   y = (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
+   x += ev.clientX;
+   y += ev.clientY;
+   return {
+      'x': x,
+      'y': y
+   }
+  }
 }
