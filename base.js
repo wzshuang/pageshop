@@ -1,4 +1,4 @@
-var Util = {
+(function($) {
   //获取请求参数
   getParam: function(url, options) {
   	options = options || {};
@@ -51,4 +51,4 @@ var Util = {
       'y': y
    }
   }
-}
+})($);
