@@ -21,6 +21,14 @@ $(document).ready(function(){
         $("#"+$(this).data("for")).css("top", $(this).css("top")).css("left", $(this).css("left"));
       }
     })
+    $('#dd').on({
+      mouseup: function(){
+        $('#width').numberspinner('setValue', $(this).width());
+        $('#height').numberspinner('setValue', $(this).height());
+        $('#top').numberspinner('setValue', $(this).css("top"));
+        $('#left').numberspinner('setValue', $(this).css("left"));
+      }
+    })
 
 
     var $dd = $("#dd");
@@ -39,7 +47,7 @@ $(document).ready(function(){
         $dd.trigger("onResize");
       },
       mouseup: function(){
-
+        $dd.trigger("mouseup");
       }
     })
 })
