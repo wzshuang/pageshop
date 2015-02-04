@@ -1,6 +1,7 @@
 $(document).ready(function(){
   var $shape = $("#shape");
-  $('#dd').resizable({
+  var $dd = $("#dd");
+  $dd.resizable({
         onStartResize: function(){
           console.log("onStartResize!");
         },
@@ -16,12 +17,12 @@ $(document).ready(function(){
           console.log("onStopResize!");
         }
       });
-    $('#dd').draggable({
+    $dd.draggable({
       onDrag: function(){
         $("#"+$(this).data("for")).css("top", $(this).css("top")).css("left", $(this).css("left"));
       }
     })
-    $('#dd').on({
+    $dd.on({
       mouseup: function(){
         $('#width').numberspinner('setValue', $(this).width());
         $('#height').numberspinner('setValue', $(this).height());
@@ -31,7 +32,7 @@ $(document).ready(function(){
     })
 
 
-    var $dd = $("#dd");
+
     $(".shape").on({
       click: function(){
 
