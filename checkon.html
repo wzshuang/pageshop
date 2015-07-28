@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>RunJS</title>
+	<script id="jquery_183" type="text/javascript" class="library" src="http://sandbox.runjs.cn/js/sandbox/jquery/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		<p>在excel中选中考勤记录（不包含表头那一行)，复制到下面的方框中，然后点击按钮</p>
+		<div id="content" contenteditable></div>
+		<button class="create">点我获取考勤记录</button>
+		<input id="content2" />
+	</body>
+</html>
+
+    	<style>#content {
+	width : 50%;
+	height: 400px;
+	border: 1px solid;
+	margin: auto;
+	overflow-y: scroll;
+}
+#content2 { display: block;width: 400px; margin: 10px auto;}
+p {text-align: center;}
+table {
+	border-collapse: collapse;
+	margin: auto;
+}
+
+td {
+	border: 1px solid;
+}
+
+.create {
+	display: block;
+	margin: 20px auto;
+}</style>
+	    		<script>$(function() {
+	$(".create").click(function() {
+		try {
+			var excel = {};
+			$("#content tr").each(function(i) {
+				var tds = $(this).find("td");
+				var bianhao = tds.eq(2).text();
+				var date = tds.eq(4).text();
+				var time = tds.eq(5).text();
+				if (!excel[bianhao]) {
+					excel[bianhao] = {
+						dep: tds.eq(0).text(),
+						name: tds.eq(1).text(),
+						num: tds.eq(2).text(),
+						time: tds.eq(3).text()
+					}
+					excel[bianhao]["date"] = {};
+					excel[bianhao]["date"][date] = [time]
+				} else {
+					if (!excel[bianhao]["date"][date]) {
+						excel[bianhao]["date"][date] = []
+					}
+					excel[bianhao]["date"][date].push(time);
+				}
+			});
+			console.log(excel);
+			var getTd = function(value) {
+				return $("<td style='vnd.ms-excel.numberformat:@'>" + value + "</td>");
+			}
+
+			var Table = $("<table></table>");
+			for (var key in excel) {
+				for (var j in excel[key].date) {
+					var TR = $("<tr></tr>");
+					TR.append(getTd(excel[key].dep));
+					TR.append(getTd(excel[key].name));
+					TR.append(getTd(excel[key].num));
+					TR.append(getTd(excel[key].time));
+					TR.append(getTd(j));
+
+					var array = excel[key].date[j].sort(function(a, b){
+						return (new Date('2015-1-1 ' + a).getTime() - new Date('2015-1-1 ' + b).getTime());
+					});
+					TR.append(getTd(excel[key].date[j][0]));
+					TR.append(getTd(excel[key].date[j][array.length - 1]));
+
+					Table.append(TR);
+				}
+			}
+			//window.clipboardData.setData("Text", Table.get(0).outerHTML);
+			$("#content2").val(Table.get(0).outerHTML);
+			alert("请将下面输入框中的内容复制到excel中");
+		} catch(e) {
+			alert("出错了,请刷新页面重试!");
+		}
+
+	});
+
+});</script>
