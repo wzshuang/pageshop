@@ -1,0 +1,112 @@
+/* css reset */
+html, body, ul, li, dl, dt, dd, p {
+    margin: 0px;
+    padding: 0px;
+}
+a {
+    text-decoration: none;
+    color: #8c8c8c;
+}
+ul {
+    list-style: none;
+}
+
+
+/* global */
+.container {
+    padding: 0 55px;
+}
+.clear {
+    clear: both;
+}
+.btn {
+
+}
+.btn-primary {
+    background-color: #ff4a00;
+    font-size: 10px;
+    color: #ffffff;
+    padding: 5px 10px;
+}
+/************************************/
+
+/* header */
+.header {
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #dfdfdf;
+    font-size: 12px;
+}
+.header li {
+    display: inline-block;
+}
+.header-nav {
+    float: left;
+}
+.header-login {
+    float: right;
+}
+.header a {
+    border-left: 1px solid #eee;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+/* footer */
+.footer {
+    background-color: #fafafa;
+}
+.footer-service {
+    padding: 20px 0;
+}
+.footer-service li {
+    width: 20%;
+    float: left;
+}
+.footer-service a {
+    display: inline-block;
+    height: 80px;
+    line-height: 80px;
+    color: #000000;
+    font-size: 18px;
+}
+.footer-links {
+    padding: 40px 0;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+}
+.footer-links dl {
+    width: 165px;
+    margin: 0 0 0 30px;
+    border-right: 1px solid #dfdfdf;
+    float: left;
+}
+.footer-links dl:first-child {
+    margin: 0px;
+}
+.footer-links dt {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.footer-links .contact {
+    float: right;
+    width: 270px;
+    text-align: center;
+}
+.contact-phone {
+    font-size: 24px;
+}
+.contact-time {
+    color: #8c8c8c;
+    margin-bottom: 15px;
+}
+.copyright {
+    text-align: center;
+    margin-top: 40px;
+}
+.copyright .copyright-site {
+    font-size: 14px;
+}
+.copyright .copyright-info {
+    font-size: 12px;
+}
