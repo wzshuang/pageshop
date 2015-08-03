@@ -9,24 +9,68 @@
             margin: 0;
             padding: 0;
         }
+        body {
+            overflow: hidden;
+        }
+        html, body {
+            width: 100%;
+        }
         ul {
             list-style: none;
         }
         li {
-            height: 632px;
+            position: absolute;
         }
         #canvas {
-                overflow: hidden;
+            width: 100%;
+            height: 40vh;
+            overflow: hidden;
+        }
+        #canvas li, #canvas li img {
+            width: 100%;
+        }
+        #canvas li img {
+            max-height: 40vh;
         }
     </style>
 </head>
 <body>
     <div id="canvas">
         <ul>
-            <li class="item1" style="transform:translate3d(360px, 0, 0);position:absolute;"><img src="http://dummyimage.com/320x640/000/fff" alt=""></li>
-            <li class="item2"><img src="http://dummyimage.com/320x640/f90/fff" alt=""></li>
-            <li class="item3"><img src="http://dummyimage.com/320x640/0f0/fff" alt=""></li>
+            <li class="item1" style="transform: translateX(0);"><img src="http://dummyimage.com/960x640/000/fff" alt=""></li>
+            <li class="item2" style="transform: translateX(340px);"><img src="http://dummyimage.com/960x640/f90/fff" alt=""></li>
+            <li class="item3" style="transform: translateX(680px);"><img src="http://dummyimage.com/960x640/0f0/fff" alt=""></li>
         </ul>
     </div>
 </body>
+<script>
+    var touchmove = function(e, start) {
+        console.log("touchMove!!!");
+        var x = e.touches[0].pageX-start.x;
+        var y = e.touches[0].pageY-start.y;
+        var lis = document.querySelectorAll("li");
+        for(var i=0; i<lis.length; i++) {
+            var li = lis[i];
+            //var translateX = li.style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0];
+            lis[i].style.transform = "translateX("+ (i*340 + x) +"px)";
+        }
+    }
+    var canvas = document.getElementById("canvas");
+    canvas.addEventListener("touchstart", function(e){
+        var that = this;
+        var start = {
+            x: e.touches[0].pageX,
+            y: e.touches[0].pageY
+        }
+        that.addEventListener("touchmove", function(e){
+            touchmove(e, start);
+        });
+    })
+
+    canvas.addEventListener("touchend", function(e){
+        this.removeEventListener("touchmove");
+        this.removeEventListener("touchend");
+        this.removeEventListener("touchstart");
+    })
+</script>
 </html>
