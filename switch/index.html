@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script type="text/javascript"src="./jquery.min.js"></script>
     <title>Document</title>
     <style>
         body, ul, li {
@@ -45,29 +46,29 @@
 </body>
 <script>
     var touchmove = function(e, start) {
-        console.log("touchMove!!!");
-        var x = e.touches[0].pageX-start.x;
-        var y = e.touches[0].pageY-start.y;
-        var lis = document.querySelectorAll("li");
-        for(var i=0; i<lis.length; i++) {
-            var li = lis[i];
-            //var translateX = li.style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0];
-            lis[i].style.transform = "translateX("+ (i*340 + x) +"px)";
-        }
+
     }
-    var canvas = document.getElementById("canvas");
-    canvas.addEventListener("touchstart", function(e){
-        var that = this;
-        var start = {
-            x: e.touches[0].pageX,
-            y: e.touches[0].pageY
-        }
-        that.addEventListener("touchmove", function(e){
-            touchmove(e, start);
-        });
+    $canvas = $("#canvas li");
+    $canvas.on("touchstart", function(e){
+            var i=$(this).index();
+            var lis = document.querySelectorAll("li");
+
+            var li = lis[i];
+
+            lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';
+            lis[i-1] && (lis[i-1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
+            lis[i+1] && (lis[i+1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
+
+            lis[i].style.webkitTransform = 'translate3d(-'+340+'px, 0, 0)';
+            lis[i+1] && (lis[i+1].style.webkitTransform = 'translate3d(0, 0, 0)');
+			lis[i+2] && (lis[i+2].style.webkitTransform = 'translate3d(' +340 +'px, 0, 0)');
+
+
+            //var translateX = li.style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
+            //lis[i].style.transform = "translateX("+ (translateX -340) +"px)";
     })
 
-    canvas.addEventListener("touchend", function(e){
+    $canvas.on("touchend", function(e){
         this.removeEventListener("touchmove");
         this.removeEventListener("touchend");
         this.removeEventListener("touchstart");
