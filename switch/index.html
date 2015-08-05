@@ -13,65 +13,99 @@
         body {
             overflow: hidden;
         }
-        html, body {
-            width: 100%;
-        }
         ul {
             list-style: none;
-        }
-        li {
-            position: absolute;
-        }
-        #canvas {
-            width: 100%;
+            width: 100vw;
             height: 40vh;
+            position: relative;
             overflow: hidden;
         }
-        #canvas li, #canvas li img {
+        ul li {
             width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 1px solid red;
+            box-sizing: border-box;
         }
-        #canvas li img {
-            max-height: 40vh;
+        ul li img {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div id="canvas">
-        <ul>
+        <ul id="canvas">
             <li class="item1" style="transform: translateX(0);"><img src="http://dummyimage.com/960x640/000/fff" alt=""></li>
-            <li class="item2" style="transform: translateX(340px);"><img src="http://dummyimage.com/960x640/f90/fff" alt=""></li>
-            <li class="item3" style="transform: translateX(680px);"><img src="http://dummyimage.com/960x640/0f0/fff" alt=""></li>
+            <li class="item2" style="transform: translateX(100vw);"><img src="http://dummyimage.com/960x640/f90/fff" alt=""></li>
+            <li class="item3" style="transform: translateX(200vw);"><img src="http://dummyimage.com/960x640/0f0/fff" alt=""></li>
+            <li class="item4" style="transform: translateX(300vw);"><img src="http://dummyimage.com/960x640/00f/fff" alt=""></li>
         </ul>
-    </div>
 </body>
 <script>
-    var touchmove = function(e, start) {
-
+    $.fn.switch = function(){
+        console.log("abc");
+    }
+</script>
+<script>
+    var getPoint = function(e) {
+        return {
+            x: e.touches[0].pageX,
+            y: e.touches[0].pageY
+        }
     }
     $canvas = $("#canvas li");
     $canvas.on("touchstart", function(e){
-            var i=$(this).index();
-            var lis = document.querySelectorAll("li");
+        var that = this;
+        var size = $canvas.size();
+        var index = $(that).index();
 
-            var li = lis[i];
+        //lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';
+        //lis[i].style.webkitTransform = 'translate3d(-'+340+'px, 0, 0)';
+        /*$(".item1").css("transition", "-webkit-transform 0.4s ease-out");
+        $(".item2").css("transition", "-webkit-transform 0.4s ease-out");
+        $(".item1").css("transform", "translateX(-100vw)");
+        $(".item2").css("transform", "translateX(0)");*/
 
-            lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';
-            lis[i-1] && (lis[i-1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
-            lis[i+1] && (lis[i+1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
+        var startPoint = getPoint(window.event);
+        var go = function(_index) {
+            console.log("index:" + _index)
+            if(_index >= 0) { //right
+            //    $canvas.eq(index).css("transform", "translateX(-100vw)");
+                //$canvas.eq(index-1).css("transform", "translateX(-"+100*index+"vw)");
+                //$canvas.eq(index+1).css("transform", "translateX(0vw)");
+                $canvas.each(function(i){
+                    var translateX = $(this).get(0).style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
+                    $(this).css("transition", "-webkit-transform 0.4s ease-out")
+                        .css("transform", "translateX("+ 100*(i-1-index) +"vw)");
+                })
+            }
+            if(_index < 0) {
+                $canvas.each(function(i){
+                    var translateX = $(this).get(0).style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
+                    $(this).css("transition", "-webkit-transform 0.4s ease-out")
+                        .css("transform", "translateX("+ 100*(i+1-index) +"vw)");
+                })
+            }
+        }
+        var touchmove = function(e) {
+            var direction = getPoint(window.event).x - startPoint.x;
+            console.log({
+                direction: direction,
+                index: index,
+                size: size
+            })
+            if(direction < 0 && (index+1)  <= (size-1)  ) { // right
+                go(1);
+            }
+            if(direction > 0 && (index-1) >= 0 ) {
+                go(-1);
+            }
 
-            lis[i].style.webkitTransform = 'translate3d(-'+340+'px, 0, 0)';
-            lis[i+1] && (lis[i+1].style.webkitTransform = 'translate3d(0, 0, 0)');
-			lis[i+2] && (lis[i+2].style.webkitTransform = 'translate3d(' +340 +'px, 0, 0)');
+        }
 
 
-            //var translateX = li.style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
-            //lis[i].style.transform = "translateX("+ (translateX -340) +"px)";
-    })
-
-    $canvas.on("touchend", function(e){
-        this.removeEventListener("touchmove");
-        this.removeEventListener("touchend");
-        this.removeEventListener("touchstart");
+        $(that).one("touchmove", touchmove);
     })
 </script>
 </html>
