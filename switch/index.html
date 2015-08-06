@@ -71,9 +71,6 @@
         var go = function(_index) {
             console.log("index:" + _index)
             if(_index >= 0) { //right
-            //    $canvas.eq(index).css("transform", "translateX(-100vw)");
-                //$canvas.eq(index-1).css("transform", "translateX(-"+100*index+"vw)");
-                //$canvas.eq(index+1).css("transform", "translateX(0vw)");
                 $canvas.each(function(i){
                     var translateX = $(this).get(0).style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
                     $(this).css("transition", "-webkit-transform 0.4s ease-out")
@@ -101,7 +98,6 @@
             if(direction > 0 && (index-1) >= 0 ) {
                 go(-1);
             }
-
         }
 
 
