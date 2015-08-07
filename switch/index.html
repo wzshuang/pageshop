@@ -1,107 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    <script type="text/javascript"src="./jquery.min.js"></script>
-    <title>Document</title>
-    <style>
-        body, ul, li {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            overflow: hidden;
-        }
-        ul {
-            list-style: none;
-            width: 100vw;
-            height: 40vh;
-            position: relative;
-            overflow: hidden;
-        }
-        ul li {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            border: 1px solid red;
-            box-sizing: border-box;
-        }
-        ul li img {
-            display: inline-block;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-        <ul id="canvas">
-            <li class="item1" style="transform: translateX(0);"><img src="http://dummyimage.com/960x640/000/fff" alt=""></li>
-            <li class="item2" style="transform: translateX(100vw);"><img src="http://dummyimage.com/960x640/f90/fff" alt=""></li>
-            <li class="item3" style="transform: translateX(200vw);"><img src="http://dummyimage.com/960x640/0f0/fff" alt=""></li>
-            <li class="item4" style="transform: translateX(300vw);"><img src="http://dummyimage.com/960x640/00f/fff" alt=""></li>
-        </ul>
-</body>
-<script>
-    $.fn.switch = function(){
-        console.log("abc");
-    }
-</script>
-<script>
-    var getPoint = function(e) {
-        return {
-            x: e.touches[0].pageX,
-            y: e.touches[0].pageY
-        }
-    }
-    $canvas = $("#canvas li");
-    $canvas.on("touchstart", function(e){
-        var that = this;
-        var size = $canvas.size();
-        var index = $(that).index();
-
-        //lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';
-        //lis[i].style.webkitTransform = 'translate3d(-'+340+'px, 0, 0)';
-        /*$(".item1").css("transition", "-webkit-transform 0.4s ease-out");
-        $(".item2").css("transition", "-webkit-transform 0.4s ease-out");
-        $(".item1").css("transform", "translateX(-100vw)");
-        $(".item2").css("transform", "translateX(0)");*/
-
-        var startPoint = getPoint(window.event);
-        var go = function(_index) {
-            console.log("index:" + _index)
-            if(_index >= 0) { //right
-                $canvas.each(function(i){
-                    var translateX = $(this).get(0).style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
-                    $(this).css("transition", "-webkit-transform 0.4s ease-out")
-                        .css("transform", "translateX("+ 100*(i-1-index) +"vw)");
-                })
-            }
-            if(_index < 0) {
-                $canvas.each(function(i){
-                    var translateX = $(this).get(0).style.transform.match(/\-?[0-9]+\.?[0-9]*/g)[0]*1;
-                    $(this).css("transition", "-webkit-transform 0.4s ease-out")
-                        .css("transform", "translateX("+ 100*(i+1-index) +"vw)");
-                })
-            }
-        }
-        var touchmove = function(e) {
-            var direction = getPoint(window.event).x - startPoint.x;
-            console.log({
-                direction: direction,
-                index: index,
-                size: size
-            })
-            if(direction < 0 && (index+1)  <= (size-1)  ) { // right
-                go(1);
-            }
-            if(direction > 0 && (index-1) >= 0 ) {
-                go(-1);
-            }
-        }
-
-
-        $(that).one("touchmove", touchmove);
-    })
-</script>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+		<title></title>
+		<script id="others_zepto_10rc1" type="text/javascript" class="library" src="http://sandbox.runjs.cn/js/sandbox/other/zepto.min.js"></script>
+		<style>
+			html, body, ul {margin: 0;padding:0;}
+			body {background-color: #f8f8f8;}
+			ul {list-style: none;}
+			.my-tab {width:100%;overflow:hidden;}
+			.tab-content li {height: 200px;}
+			.tab-nav {background-color: #fff;}
+		</style>
+	</head>
+	<body>
+		<div class="my-tab">
+			<ul class="tab-nav">
+				<li>选项卡1</li>
+				<li>选项卡2</li>
+				<li>选项卡3</li>
+			</ul>
+			<ul class="tab-content">
+				<li style="background-color:lightblue;">内容1内容1内容1</li>
+				<li style="background-color:lightpink;">内容2内容2内容2</li>
+				<li style="background-color:lightsalmon;">内容3内容3内容3</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		(function($){
+			window.Scroll = function(params) {
+				var context = $.extend({}, {
+					nav: "tab-nav",
+					content: "tab-content",
+					duration: 300
+				}, params);
+				var nav = context.nav;
+				var content = context.content;
+				var duration = context.duration;
+				//初始化样式
+				(function() {
+					var contentSize = $("."+content+" li").size();
+					$("." + nav + ", ." + content).css("display", "-webkit-box");
+					$("."+content).css("width", contentSize + "00%")
+												.css("-webkit-transition-timing-function", "cubic-bezier(0.1, 0.57, 0.1, 1)")
+												.css("-webkit-transition-duration", duration + "ms").css("transform", "translateX(0)");
+					$("." + nav + ">li, ." + content + ">li").each(function() {
+						$(this).css("width", "100%").css("-webkit-box-flex", "1")
+					});
+				})();
+				//绑定事件
+				(function() {
+					$("."+nav+" li").on("click", function(e) {
+						var index = $(this).index();
+						var size = $("."+nav+" li").size();
+						$("."+content).css("transform", "translateX(-" + 100 / size * index + "%)");
+					});
+				})();
+			}
+		})(window.Zepto);
+		new Scroll();
+	</script>
 </html>
