@@ -3,6 +3,7 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-size: 62.5%;
+    color: #333;
 }
 h2, h3, p {
     margin: 0;
@@ -18,34 +19,45 @@ ul {
 }
 
 .content {
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 5em;
 }
 .msg-list {
     margin: 0;
     padding: 0;
 }
 .msg-list li {
-    background-color: lightblue;
+    border-bottom: 1px solid #ccc;
 }
 .msg-list .avatar {
     position: absolute;
+    margin-top: 1em;
+    display: none;
 }
 .msg-list .msg {
-    margin-left: 4em;
+    width: 100%;
+}
+.msg-list .preview {
+    margin-bottom: 0.5em;
 }
 .msg-list .name {
-    width: 70vw;
     line-height: 3em;
     font-size: 2.4em;
     font-weight: bold;
-    display: inline-block;
 }
 .msg-list .time {
-    position: absolute;
+    float: right;
+    font-weight: normal;
+    font-size: .5em;
 }
 
 
 .footer {
-    height: 5em;
+    height: 8vh;
     position: absolute;
     bottom: 0;
     left: 0;
