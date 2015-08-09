@@ -1,0 +1,54 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 62.5%;
+}
+h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+.page {
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+}
+.msg-list {
+    margin: 0;
+    padding: 0;
+}
+.msg-list li {
+    background-color: lightblue;
+}
+.msg-list .avatar {
+    position: absolute;
+}
+.msg-list .msg {
+    margin-left: 4em;
+}
+.msg-list .name {
+    width: 70vw;
+    line-height: 3em;
+    font-size: 2.4em;
+    font-weight: bold;
+    display: inline-block;
+}
+.msg-list .time {
+    position: absolute;
+}
+
+
+.footer {
+    height: 5em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: lightgray;
+}
