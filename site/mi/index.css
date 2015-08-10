@@ -20,7 +20,9 @@ ul {
     clear: both;
 }
 .btn {
-
+}
+.btn:hover {
+    background-color: #ff1a00;
 }
 .btn-primary {
     background-color: #ff4a00;
@@ -63,12 +65,23 @@ ul {
     width: 20%;
     float: left;
 }
-.footer-service a {
+.footer-service li a {
     display: inline-block;
     height: 80px;
-    line-height: 80px;
+    line-height: 60px;
     color: #000000;
+    text-align: center;
+}
+.footer-service li a span {
+    display: block;
+    font-size: 30px;
+    color: #6d6d6d;
+}
+.footer-service li a strong {
     font-size: 18px;
+}
+.footer-service li a:hover span {
+    color: #ff4a00;
 }
 .footer-links {
     padding: 40px 0;

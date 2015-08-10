@@ -71,19 +71,25 @@ ul {
     background-color: lightgray;
 }
 
+.tag {
+    height: 100%;
+}
 .tag li {
     display: inline-block;
     line-height: 14px;
     margin-right: 35px;
     height: 100%;
+    width: 40px;
 }
 .tag a {
     font-size: 24px;
     text-decoration: none;
     text-align: center;
     display: block;
-    margin-top: 5px;
     color: #333;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
 }
 .tag .active {
     color: green;
