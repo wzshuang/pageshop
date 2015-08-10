@@ -12,6 +12,7 @@ h2, h3, p {
 
 ul {
     list-style: none;
+    margin: 0;
 }
 .page {
     width: 100%;
@@ -24,7 +25,7 @@ ul {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 5em;
+    bottom: 10vh;
 }
 .msg-list {
     margin: 0;
@@ -32,14 +33,19 @@ ul {
 }
 .msg-list li {
     border-bottom: 1px solid #ccc;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .msg-list .avatar {
     position: absolute;
-    margin-top: 1em;
-    display: none;
+    margin: auto;
+    top: 0;
+    bottom: 0;
 }
 .msg-list .msg {
-    width: 100%;
+    overflow: hidden;
+    margin-left: 40px;
 }
 .msg-list .preview {
     margin-bottom: 0.5em;
@@ -57,10 +63,34 @@ ul {
 
 
 .footer {
-    height: 8vh;
+    height: 10vh;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: lightgray;
+}
+
+.tag li {
+    display: inline-block;
+    line-height: 14px;
+    margin-right: 35px;
+    height: 100%;
+}
+.tag a {
+    font-size: 24px;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 5px;
+    color: #333;
+}
+.tag .active {
+    color: green;
+}
+.tag .icon {
+    display: block;
+}
+.tag .tag-name {
+    font-size: 16px;
 }
