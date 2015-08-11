@@ -4,6 +4,7 @@ html, body {
     overflow: hidden;
     font-size: 62.5%;
     color: #333;
+    -webkit-tap-highlight-color:rgba(0,0,0,0); /* 解决a标签按下时出现蓝色边框 */
 }
 h2, h3, p {
     margin: 0;
@@ -13,6 +14,7 @@ h2, h3, p {
 ul {
     list-style: none;
     margin: 0;
+    padding: 0;
 }
 .page {
     width: 100%;
@@ -25,7 +27,7 @@ ul {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 10vh;
+    bottom: 50px;
 }
 .msg-list {
     margin: 0;
@@ -34,25 +36,28 @@ ul {
 .msg-list li {
     border-bottom: 1px solid #ccc;
     position: relative;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: 50px;
+    padding: 10px;
+}
+.msg-list li:active {
+    background-color: lightgrey;
 }
 .msg-list .avatar {
     position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
+    width: 50px;
 }
 .msg-list .msg {
     overflow: hidden;
-    margin-left: 40px;
+    margin-left: 56px;
 }
 .msg-list .preview {
-    margin-bottom: 0.5em;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #777;
 }
 .msg-list .name {
-    line-height: 3em;
-    font-size: 2.4em;
+    line-height: 30px;
+    font-size: 18px;
     font-weight: bold;
 }
 .msg-list .time {
@@ -63,7 +68,7 @@ ul {
 
 
 .footer {
-    height: 10vh;
+    height: 50px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -76,20 +81,17 @@ ul {
 }
 .tag li {
     display: inline-block;
-    line-height: 14px;
-    margin-right: 35px;
     height: 100%;
-    width: 40px;
+    width: 24%;
 }
 .tag a {
     font-size: 24px;
     text-decoration: none;
-    text-align: center;
     display: block;
     color: #333;
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
+    text-align: center;
+    line-height: 18px;
+    margin-top: 4px;
 }
 .tag .active {
     color: green;
