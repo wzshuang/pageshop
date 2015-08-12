@@ -80,9 +80,9 @@ ul {
     height: 100%;
 }
 .tag li {
-    display: inline-block;
+    float: left;
     height: 100%;
-    width: 24%;
+    width: 25%;
 }
 .tag a {
     font-size: 24px;
