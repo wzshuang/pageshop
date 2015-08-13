@@ -29,7 +29,15 @@
 		</div>
 	</body>
 	<script>
+		//touchstar时点的坐标
+		var start = {};
 		(function($){
+			var getPoint = function(event){
+				return {
+					x: event.touches[0].pageX,
+					y: event.touches[0].pageY
+				}
+			}
 			window.Scroll = function(params) {
 				var context = $.extend({}, {
 					nav: "tab-nav",
@@ -52,11 +60,36 @@
 				})();
 				//绑定事件
 				(function() {
-					$("."+nav+" li").on("click", function(e) {
-						var index = $(this).index();
-						var size = $("."+nav+" li").size();
-						$("."+content).css("transform", "translateX(-" + 100 / size * index + "%)");
+					$("."+nav+" li").on({
+						click: function(e) {
+							var index = $(this).index();
+							var size = $("."+nav+" li").size();
+							$("."+content).css("transform", "translateX(-" + 100 / size * index + "%)");
+						}
 					});
+					$("."+ content + " li").on({
+						touchstart: function(){
+							start = getPoint(window.event);
+							return start;
+						},
+						touchend: function(e){
+							var point = {
+								x: window.event.changedTouches[0].pageX,
+								y: window.event.changedTouches[0].pageY
+							}
+							var index = $(this).index();
+							var size = $("."+nav+" li").size();
+							if( (point.x - start.x) > 0) { //向左滑
+								if((index-1) >= 0) {
+									$("."+content).css("transform", "translateX(-" + 100 / size * (index-1) + "%)");
+								}
+							} else {
+								if( (index + 1) <= (size-1) ) {
+									$("."+content).css("transform", "translateX(-" + 100 / size * (index+1) + "%)");
+								}
+							}
+						}
+					})
 				})();
 			}
 		})(window.Zepto);
